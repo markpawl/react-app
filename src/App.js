@@ -46,7 +46,7 @@ export default function App() {
   }  
   
   return (<div className={'app'}>
-    <h2>React Hooks App</h2>
+    <h2>React App</h2>
     <ul>
       {articles.map(
         (article, index) => {

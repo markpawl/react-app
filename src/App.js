@@ -1,4 +1,3 @@
-// import React, { useState, useEffect } from 'react';
 import React, { useState, useEffect } from 'react';
 import './App.css';
 
@@ -8,7 +7,9 @@ export default function App() {
   const [formObject, setFormObject] = useState({ title: 'title1', content: 'content1' });
   const [selectedArticleId, setSelectedArticleId] = useState(-1);
   const [articles, setArticles] = useState(initialArticles);
+
   const getArticles = function () {
+    console.log('running getArticles...');
     fetch('articles.json')
       .then(response => response.json())
       .then(data => {
@@ -16,24 +17,34 @@ export default function App() {
       }
       );
   };
-  useEffect(() => { getArticles() }, []);
+
+  useEffect(
+    () => { getArticles()}
+    ,[] 
+  );
+
   const selectedArticle = (articles[selectedArticleId]) ?
     articles[selectedArticleId].content : 'none';
+
   const changeHandler = function (event) {
     const name = event.target.name;
     const value = event.target.value;
-    formObject[name] = value;
-    setFormObject({ ...formObject })
+    let newObj = {...formObject};
+    newObj[name] = value;
+    setFormObject(newObj)
   }
+
   const validSelectedArticleId = function () {
     return (selectedArticleId >= 0 && selectedArticleId < articles.length);
   }
+
   const deleteSelected = function () {
     if (validSelectedArticleId()) {
       articles.splice(selectedArticleId, 1);
       setArticles([...articles]);
     }
   }  
+  
   return (<div className={'app'}>
     <h2>React Hooks App</h2>
     <ul>

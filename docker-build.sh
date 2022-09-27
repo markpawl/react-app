@@ -1,2 +1,2 @@
 echo "Docker Build"
-docker build -t react-app-image .
+docker build --rm -t react-app-image .
